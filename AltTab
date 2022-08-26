@@ -1,0 +1,54 @@
+package alt_tab;
+
+import java.awt.Color;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class AltTab {
+
+	static JLabel label;
+
+	public static void main(String[] args) {
+		
+		try {
+			setUpGUI();
+			runAltTab();
+		} catch (Exception e) {
+			e.printStackTrace();
+			label.setText("     Error - please restart");
+		}
+	}
+	
+	private static void runAltTab() throws Exception {
+		
+		Robot robot = new Robot();
+	
+		// Press alt-tab every 180 seconds
+		while(true) {
+			Thread.sleep(180000);
+			robot.keyPress(KeyEvent.VK_ALT);
+			robot.keyPress(KeyEvent.VK_TAB);
+			robot.delay(100);
+			robot.keyRelease(KeyEvent.VK_TAB);
+			robot.keyRelease(KeyEvent.VK_ALT);
+		}
+	}
+	
+	private static void setUpGUI() throws Exception {
+		label = new JLabel();
+		label.setForeground(Color.white);
+		label.setText("     Loading...");
+		
+		JFrame frame = new JFrame("");
+		frame.setSize(300, 100);
+		frame.add(label);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setBackground(Color.black);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+}
